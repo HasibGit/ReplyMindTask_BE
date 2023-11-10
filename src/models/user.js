@@ -72,6 +72,9 @@ UserSchema.pre("save", function (next) {
   });
 });
 
+module.exports = mongoose.model("User", UserSchema);
+
+// Custom Validator Functions
 // Custom email validation function
 function validateEmail(email) {
   // Use a regex or a more advanced email validation library here
@@ -83,8 +86,9 @@ function validateEmail(email) {
 // Custom password validation function
 function validatePassword(password) {
   // Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character
+
   const passwordRegex =
-    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-])[\w!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]{8,}$/;
   return passwordRegex.test(password);
 }
 
@@ -99,5 +103,3 @@ function validateMaxWords(bio) {
   const wordCount = bio.split(/\s+/).length;
   return wordCount <= maxWords;
 }
-
-module.exports = mongoose.model("User", UserSchema);
