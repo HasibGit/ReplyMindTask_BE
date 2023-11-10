@@ -5,6 +5,11 @@ const mongoose = require("mongoose");
 
 app.use(express.json());
 
+app.use((req, res, next) => {
+  console.log("HTTP Method: " + req.method + " " + "Url: " + req.url);
+  next();
+});
+
 app.use("/reply-mind/api", userRouter);
 
 mongoose
