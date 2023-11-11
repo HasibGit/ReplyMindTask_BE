@@ -142,9 +142,30 @@ const updateUser = async (req, res) => {
   }
 };
 
+const deleteUser = async (req, res) => {
+  try {
+    if (req.params.id !== req.userId) {
+      res.status(400).json({ message: "Bad request" });
+      return;
+    }
+
+    const deletedUser = await userModel.findOneAndDelete({ _id: req.userId });
+
+    if (!deletedUser) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.status(200).json({ message: "User deleted successfully" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json(err);
+  }
+};
+
 module.exports = {
   signup,
   login,
   getUserById,
   updateUser,
+  deleteUser,
 };
