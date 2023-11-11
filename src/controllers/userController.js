@@ -162,10 +162,20 @@ const deleteUser = async (req, res) => {
   }
 };
 
+const logout = async (req, res) => {
+  try {
+    res.status(200).json({ message: "Logged out successfully" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json(err);
+  }
+};
+
 module.exports = {
   signup,
   login,
   getUserById,
   updateUser,
   deleteUser,
+  logout,
 };
