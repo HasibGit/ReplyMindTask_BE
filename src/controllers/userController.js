@@ -1,7 +1,7 @@
 const userModel = require("../models/user");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
-const SECRET_KEY = "REPLYMIND";
+const SECRET_KEY = process.env.SECRET_KEY;
 
 const signup = async (req, res) => {
   try {
@@ -29,7 +29,6 @@ const signup = async (req, res) => {
       LastName,
       Email,
       Password,
-      ConfirmPassword,
       DateOfBirth,
       StreetAddress,
       City,
@@ -48,7 +47,7 @@ const signup = async (req, res) => {
       { expiresIn }
     );
 
-    res.status(201).json({
+    res.status(200).json({
       token: token,
       userId: result._id,
       email: result.Email,

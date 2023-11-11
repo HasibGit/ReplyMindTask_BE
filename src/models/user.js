@@ -22,7 +22,7 @@ const UserSchema = mongoose.Schema(
     },
     ConfirmPassword: {
       type: String,
-      required: true,
+      required: false,
       validate: {
         validator: validateConfirmPassword,
         message: "Passwords do not match",
